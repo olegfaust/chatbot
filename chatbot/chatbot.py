@@ -21,7 +21,15 @@ class ChatBot:
     def process(self, query):
         """Process user input
         """
+        # return immediately if query is empty
+        if not query:
+            return ""
+        # find relevant documents
         docs = self.retriever.search(query)
+        # if there is no relevant documents - return
+        if not docs:
+            return ""
+        # answer the question using the most relevant document as context
         answer = self.reader.answer(query, docs[0])
 
         return answer
